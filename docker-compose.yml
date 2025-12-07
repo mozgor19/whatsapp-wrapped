@@ -1,23 +1,13 @@
 version: '3.8'
 
 services:
-  backend:
-    build: ./backend
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/app  # Geliştirme yaparken kodu canlı güncellemek için
-    environment:
-      - PYTHONUNBUFFERED=1
-
   frontend:
-    build: ./frontend
+    build: .
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules # Node modules'u ezmemek için
-    depends_on:
-      - backend
+      - .:/app
+      - /app/node_modules # Container içindeki node_modules'ü korur
     environment:
-      - VITE_API_URL=http://localhost:8000
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true

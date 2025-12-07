@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #030712; /* gray-950 */
+  color: white;
+}
+
+/* Scrollbar Gizleme */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Keyboard hint style */
+.kbd {
+  background: #374151;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+}
