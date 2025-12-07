@@ -116,34 +116,68 @@ const SummaryPoster = ({ data }) => {
   );
 };
 
-const InfoSection = ({ onClose }) => (
-   <div className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-md flex items-center justify-center p-6">
-      <div className="bg-[#111] w-full max-w-2xl rounded-3xl p-8 border border-gray-800 max-h-[85vh] overflow-y-auto relative shadow-2xl">
-         <button onClick={onClose} className="absolute top-4 right-4 bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors text-white"><X /></button>
-         <div className="space-y-10">
-            <section>
-               <h3 className="text-2xl font-black text-green-400 flex items-center gap-3 mb-4 tracking-wide"><ShieldCheck size={32} /> GÜVENLİK & GİZLİLİK GARANTİSİ</h3>
-               <div className="bg-green-900/10 border border-green-900/30 p-6 rounded-2xl text-gray-300 text-base leading-relaxed">
-                  <p className="mb-4"><strong className="text-white">Verileriniz ASLA Sunucuya Gitmez.</strong> Bu uygulama, sohbet dosyalarınızı analiz etmek için <strong className="text-white underline">tarayıcınızın kendi gücünü</strong> kullanır.</p>
-                  <ul className="list-disc list-inside space-y-2 marker:text-green-500">
-                     <li>İnternet bağlantınızı kesseniz bile analiz çalışır.</li>
-                     <li>Hiçbir veri veritabanına kaydedilmez veya başkasıyla paylaşılmaz.</li>
-                     <li>Sayfayı yenilediğinizde tüm veriler silinir.</li>
-                  </ul>
+const InfoSection = ({ onClose }) => {
+  const [activeTab, setActiveTab] = useState(() => {
+    const ua = navigator.userAgent.toLowerCase();
+    return ua.includes('iphone') || ua.includes('ipad') ? 'ios' : 'android';
+  });
+
+  return (
+   <div className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-200">
+      <div className="bg-[#111] w-full max-w-2xl rounded-3xl border border-gray-800 max-h-[90vh] overflow-y-auto relative shadow-2xl flex flex-col">
+         
+         <div className="p-6 border-b border-gray-800 flex justify-between items-center sticky top-0 bg-[#111] z-10">
+            <h3 className="text-xl md:text-2xl font-black text-white flex items-center gap-2">
+               <HelpCircle className="text-blue-500" /> NASIL YAPILIR?
+            </h3>
+            <button onClick={onClose} className="bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors text-white"><X size={20} /></button>
+         </div>
+         
+         <div className="p-6 space-y-8">
+            <div className="flex bg-gray-900 p-1 rounded-xl">
+               <button onClick={() => setActiveTab('ios')} className={`flex-1 py-3 rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2 ${activeTab === 'ios' ? 'bg-white text-black shadow-lg' : 'text-gray-400 hover:text-white'}`}><span className="text-lg">🍎</span> iOS (iPhone)</button>
+               <button onClick={() => setActiveTab('android')} className={`flex-1 py-3 rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2 ${activeTab === 'android' ? 'bg-green-600 text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}><span className="text-lg">🤖</span> Android</button>
+            </div>
+
+            <div className="space-y-6">
+               {activeTab === 'ios' ? (
+                  <div className="space-y-4">
+                     <div className="flex gap-4 items-center bg-gray-800/30 p-4 rounded-xl border border-gray-700"><div className="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center text-xl shrink-0 font-bold">1</div><p className="text-gray-300">WhatsApp'ı açın ve analiz etmek istediğiniz <strong>Sohbete</strong> girin.</p></div>
+                     <div className="flex gap-4 items-center bg-gray-800/30 p-4 rounded-xl border border-gray-700"><div className="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center text-xl shrink-0 font-bold">2</div><p className="text-gray-300">En üstteki <strong>Kişi/Grup İsmine (Contact Info)</strong> tıklayın.</p></div>
+                     <div className="flex gap-4 items-center bg-gray-800/30 p-4 rounded-xl border border-gray-700"><div className="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center text-xl shrink-0 font-bold">3</div><p className="text-gray-300">En aşağı inin ve <strong className="text-blue-400">Sohbeti Dışa Aktar (Export Chat)</strong> seçeneğine basın.</p></div>
+                  </div>
+               ) : (
+                  <div className="space-y-4">
+                     <div className="flex gap-4 items-center bg-gray-800/30 p-4 rounded-xl border border-gray-700"><div className="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center text-xl shrink-0 font-bold">1</div><p className="text-gray-300">Sohbete girin ve sağ üstteki <strong>üç noktaya (⋮)</strong> tıklayın.</p></div>
+                     <div className="flex gap-4 items-center bg-gray-800/30 p-4 rounded-xl border border-gray-700"><div className="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center text-xl shrink-0 font-bold">2</div><p className="text-gray-300">Sırasıyla <strong>Diğer (More) {'>'} Sohbeti Dışa Aktar (Export Chat)</strong> seçeneğine basın.</p></div>
+                  </div>
+               )}
+
+               <div className="mt-6 bg-red-500/10 border border-red-500/30 p-5 rounded-2xl flex gap-4 items-start animate-pulse">
+                  <AlertCircle className="text-red-400 shrink-0 mt-1" size={24} />
+                  <div>
+                     <h4 className="font-bold text-red-400 mb-1 text-lg">ÇOK ÖNEMLİ / IMPORTANT:</h4>
+                     <p className="text-gray-300">Karşınıza çıkan soruda mutlaka <strong>"MEDYA EKLEME" (Without Media)</strong> seçeneğini seçin. <br/><br/><span className="opacity-60 text-sm">Medyalı dosyalar çok büyük olur ve tarayıcınız işleyemeyebilir.</span></p>
+                  </div>
                </div>
-            </section>
-            <section>
-               <h3 className="text-2xl font-black text-blue-400 flex items-center gap-3 mb-4 tracking-wide"><HelpCircle size={32} /> NASIL KULLANILIR?</h3>
-               <div className="space-y-4 text-gray-300">
-                  <p>1. WhatsApp → Sohbet → İsme Tıkla → <strong>Sohbeti Dışa Aktar</strong>.</p>
-                  <p>2. <strong>"Medya Ekleme"</strong> seçeneğini seçin.</p>
-                  <p>3. İnen <strong>.zip</strong> veya <strong>.txt</strong> dosyasını buraya yükleyin.</p>
+
+               <div className="flex gap-4 items-center bg-green-900/20 p-4 rounded-xl border border-green-800/50">
+                  <div className="bg-green-500 w-10 h-10 rounded-full flex items-center justify-center text-black font-bold text-xl shrink-0">✓</div>
+                  <p className="text-gray-300">Oluşan <strong>.zip</strong> veya <strong>.txt</strong> dosyasını kaydedin ve bu siteye yükleyin.</p>
                </div>
-            </section>
+            </div>
+
+            <div className="pt-6 border-t border-gray-800 text-center">
+               <div className="inline-flex items-center gap-2 text-green-500/90 text-sm font-bold bg-green-900/20 px-4 py-2 rounded-full border border-green-900/50">
+                  <ShieldCheck size={16} />
+                  <span>%100 GÜVENLİ • CİHAZINIZDA İŞLENİR</span>
+               </div>
+            </div>
          </div>
       </div>
    </div>
-);
+  );
+};
 
 // --- APP ---
 
@@ -476,10 +510,24 @@ const App = () => {
 
           <button 
             onClick={() => setShowInfo(true)}
-            className="text-xs text-gray-500 hover:text-white flex items-center justify-center gap-1 mx-auto mt-4 transition-colors"
+            className="w-full mt-6 bg-[#1a1a1a] hover:bg-[#222] border border-gray-800 hover:border-gray-600 transition-all p-4 rounded-2xl flex items-center justify-between group shadow-lg"
           >
-            <ShieldCheck size={14} /> Güvenlik ve Nasıl Kullanılır?
+            <div className="flex items-center gap-4">
+              <div className="bg-blue-500/20 p-3 rounded-full group-hover:bg-blue-500/30 transition-colors">
+                <HelpCircle className="text-blue-400 w-6 h-6 group-hover:scale-110 transition-transform" />
+              </div>
+              <div className="text-left">
+                <div className="font-bold text-white text-lg">Nasıl Yapılır?</div>
+                <div className="text-gray-400 text-sm">Adım adım resimli anlatım</div>
+              </div>
+            </div>
+            <ChevronRight className="text-gray-600 group-hover:text-white transition-colors" />
           </button>
+          
+          <div className="mt-4 flex items-center justify-center gap-2 text-green-500/60 text-xs font-mono">
+            <ShieldCheck size={12} />
+            <span>Verileriniz sunucuya gönderilmez</span>
+          </div>
         </div>
       ) : (
         <div className="flex flex-col items-center gap-0 md:gap-6 w-full md:max-w-md h-full md:h-auto relative">
