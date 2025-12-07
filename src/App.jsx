@@ -456,7 +456,7 @@ const App = () => {
           </div>
           
           <div>
-            <h1 className="text-4xl font-black tracking-tight mb-2">WRAPPED 2025</h1>
+            <h1 className="text-4xl font-black tracking-tight mb-2">W(P)RAPPED 2025</h1>
             <p className="text-gray-400">WhatsApp sohbet dosyanı yükle, yılın özetini çıkaralım.</p>
           </div>
           
