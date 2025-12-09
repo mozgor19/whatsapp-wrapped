@@ -301,7 +301,7 @@ export class WhatsAppAnalyzer {
   
   getMilestones() {
       let latestMsg = null, latestScore = -1;
-      this.df.forEach(row => {
+      this.cleanDf.forEach(row => {
           let h = row.Saat_Sayisal;
           if (h >= 0 && h < 6) h += 24;
           const score = h * 60 + parseInt(row.Saat.split(':')[1]);
@@ -310,7 +310,7 @@ export class WhatsAppAnalyzer {
       
       // DÜZELTME: 1000. mesaj ve tarih ekleme
       const msg1000Index = 999;
-      const msg1000 = this.df.length > msg1000Index ? this.df[msg1000Index] : null;
+      const msg1000 = this.cleanDf.length > msg1000Index ? this.cleanDf[msg1000Index] : null;
 
       return {
           latest_message: latestMsg ? { 
