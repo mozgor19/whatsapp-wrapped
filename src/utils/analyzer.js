@@ -310,7 +310,7 @@ export class WhatsAppAnalyzer {
       
       // DÜZELTME: 1000. mesaj ve tarih ekleme
       const msg1000Index = 999;
-      const msg1000 = this.cleanDf.length > msg1000Index ? this.cleanDf[msg1000Index] : null;
+      const msg1000 = this.df.length > msg1000Index ? this.df[msg1000Index] : null;
 
       return {
           latest_message: latestMsg ? { 
