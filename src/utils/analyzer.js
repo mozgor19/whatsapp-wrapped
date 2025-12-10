@@ -27,8 +27,8 @@ export class WhatsAppAnalyzer {
         Tam_Zaman: tamZaman,
         Saat_Sayisal: h
       };
-    }).filter(row => !isNaN(row.Tam_Zaman.getTime()))
-    .filter(row => row.Tam_Zaman.getFullYear() === 2025);
+    }).filter(row => !isNaN(row.Tam_Zaman.getTime()));
+    //.filter(row => row.Tam_Zaman.getFullYear() === 2025);
 
     this.df.sort((a, b) => a.Tam_Zaman - b.Tam_Zaman);
 
